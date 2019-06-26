@@ -59,12 +59,13 @@ function getRecords() {
                     aws route53 list-resource-record-sets --page-size 500  --hosted-zone-id $zone \
                     --profile $profileName | grep -A $lineCount -i $recordForQuery >> /tmp/$zone.result
                     if [[ -s /tmp/$zone.result ]]; then
-                        zoneCommmonName=$(aws route53 list-hosted-zones --profile $profileName --output text | grep -i $zone | awk {'print $4'})
+                        zoneCommonName=$(aws route53 list-hosted-zones --profile $profileName --output text | grep -i $zone | awk {'print $4'})
                         printf "%s\n" "[INFO]: Success, found record:" "    ~ ZONE COMMON NAME: $zoneCommonName" "    ~ Zone: $zone"
                         cat /tmp/$zone.result
                         rm -f /tmp/$zone.result
                     else
                         printf "%s\n" "[INFO]: Nothing to report for this zone."
+                        rm -f /tmp/$zone.result
                     fi
         done
 }
