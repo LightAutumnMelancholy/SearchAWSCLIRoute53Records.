@@ -60,7 +60,8 @@ function getRecords() {
                     --profile $profileName | grep -A $lineCount -i $recordForQuery >> /tmp/$zone.result
                     if [[ -s /tmp/$zone.result ]]; then
                         zoneCommonName=$(aws route53 list-hosted-zones --profile $profileName --output text | grep -i $zone | awk {'print $4'})
-                        printf "%s\n" "[INFO]: Success, found record:" "    ~ ZONE COMMON NAME: $zoneCommonName" "    ~ Zone: $zone"
+                        echo -e "\033[33;5;7m[INFO]: Success, found record(s):\033[0m"
+			printf "$s\n" "    ~ ZONE COMMON NAME: $zoneCommonName" "    ~ Zone: $zone"
                         cat /tmp/$zone.result
                         rm -f /tmp/$zone.result
                     else
