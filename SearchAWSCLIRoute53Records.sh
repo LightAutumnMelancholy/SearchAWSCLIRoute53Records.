@@ -52,7 +52,7 @@ function ctrl_c() {
         exit 1
 }
 function getRecords() {
-        zones=$(aws route53 list-hosted-zones --profile appiavcp --output text | grep hostedzone | awk {'print $3'} | sed -e s'/hostedzone//g;s/\///g')
+        zones=$(aws route53 list-hosted-zones --profile $profileName --output text | grep hostedzone | awk {'print $3'} | sed -e s'/hostedzone//g;s/\///g')
         for zone in $zones
             do 
                     printf "%s\n" "[INFO]: Checking $zone in $profileName :"
